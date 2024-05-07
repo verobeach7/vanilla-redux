@@ -1,23 +1,18 @@
+import { legacy_createStore } from "redux";
+
 const add = document.getElementById("add");
 const minus = document.getElementById("minus");
 const number = document.querySelector("span");
 
-let count = 0;
-
-number.innerText = count;
-
-const updateText = () => {
-  number.innerText = count;
+// Reducer: countStore를 modify하는 함수
+// Return value는 새로운 data(state)가 됨
+const countModifier = (state = 0) => {
+  // Modify state
+  return state;
 };
 
-const handleAdd = () => {
-  count++;
-  updateText();
-};
-const handleMinus = () => {
-  count--;
-  updateText();
-};
+// countStore: data(state)를 저장하는 곳
+// Reducer의 Return값이 새로운 값이 됨
+const countStore = legacy_createStore(countModifier);
 
-add.addEventListener("click", handleAdd);
-minus.addEventListener("click", handleMinus);
+console.log(countStore.getState());
