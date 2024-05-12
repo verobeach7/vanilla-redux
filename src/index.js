@@ -13,10 +13,11 @@ const ADD_TODO = "ADD_TODO";
 const DELETE_TODO = "DELETE TODO";
 
 const reducer = (state = [], action) => {
-  console.log(action); // {type: 'ADD_TODO', text: 'asdf'}
+  // console.log(action); // {type: 'ADD_TODO', text: 'asdf'}
   switch (action.type) {
     case ADD_TODO:
-      return [];
+      // ...: es6 spread
+      return [...state, { text: action.text, id: action.id }];
     case DELETE_TODO:
       return [];
     default:
@@ -25,6 +26,8 @@ const reducer = (state = [], action) => {
 };
 
 const store = legacy_createStore(reducer);
+
+store.subscribe(() => console.log(store.getState()));
 
 /* const createToDo = (toDo) => {
   const li = document.createElement("li");
@@ -38,7 +41,7 @@ const onSubmit = (e) => {
   input.value = "";
   // createToDo(toDo);
   // dispatch를 통해서 reducer와 커뮤니케이션 할 수 있음. 원하는 모든 정보 보낼 수 있음.
-  store.dispatch({ type: ADD_TODO, text: toDo });
+  store.dispatch({ type: ADD_TODO, text: toDo, id: Date.now() });
 };
 
 form.addEventListener("submit", onSubmit);
