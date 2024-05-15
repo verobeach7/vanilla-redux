@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
 import { legacy_createStore } from "redux";
 
 const ADD = "ADD";
@@ -30,5 +29,10 @@ const reducer = (state = [], action) => {
 };
 
 const store = legacy_createStore(reducer);
+
+export const actionCreators = {
+  addToDo,
+  deleteToDo,
+};
 
 export default store;

@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { actionCreators } from "../store";
 
-function Home({ toDos }) {
+// mapStateToProps와 mapDispatchToProps를 이용하여 컴포넌트에서 활용할 수 있음
+// function Home({ toDos, ...rest }) {
+function Home({ toDos, addToDo }) {
+  //   console.log(rest);
   const [text, setText] = useState("");
   const onChange = (e) => {
     setText(e.target.value);
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    // console.log(text);
+    addToDo(text);
     setText("");
-    console.log(text);
   };
   return (
     <>
@@ -18,23 +23,28 @@ function Home({ toDos }) {
         <input type="text" value={text} onChange={onChange} />
         <button>Add</button>
       </form>
+      {/* mapStateToProps에서 가져온 toDos 사용 */}
       <ul>{JSON.stringify(toDos)}</ul>
     </>
   );
 }
 
-/* // React Redux: connect - mapStateToProps
-// mapStateToProps를 사용한다는 것은 Redux Store로부터 무엇인가를 가져오고 싶을 것
-function mapStateToProps(state, ownProps) {
-  // state: redux store에 저장되어있는 state
-  // ownProps: Home 컴포넌트에 보내진 props
-  // console.log(state, ownProps);
-  return { sexy: true };
-} */
-
+// mapStateToProps 인자로 2개를 가짐: state, ownProps
+// store.getState() 역할을 함
 function mapStateToProps(state) {
   return { toDos: state };
 }
 
-// getCurrentState에 반환된 props가 Home컴포넌트의 props에 추가됨
-export default connect(mapStateToProps)(Home);
+// mapDispatchToProps 인자로 2개를 가짐: dispatch, ownProps
+// store.dispatch() 역할을 함
+function mapDispatchToProps(dispatch) {
+  // dispatch를 가져옴으로써 store에 저장된 state를 바꿀 수 있는 힘이 생김
+  // return에 addToDo 함수를 만들어 컴포넌트에 전달
+  return { addToDo: (text) => dispatch(actionCreators.addToDo(text)) };
+}
+
+// connect(mapStateToProps)를 이용하여 Store에 연결
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
+// 첫번째 인자인 mapStateToProps는 필요없고 mapDispatchToProps만 필요한 경우
+// export default connect(null, mapStateToProps)(Home);
