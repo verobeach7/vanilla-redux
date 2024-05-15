@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { actionCreators } from "../store";
+import { Link } from "react-router-dom";
 
 // 2. onBtnClick 함수를 props로 전달
-const ToDo = ({ text, onBtnClick }) => {
+const ToDo = ({ text, onBtnClick, id }) => {
   return (
     <li>
-      {text}
+      <Link to={`/${id}`}>{text}</Link>
       {/* 3. props로 받아온 onBtnClick을 사용 */}
       <button onClick={onBtnClick}>DEL</button>
     </li>
