@@ -7,6 +7,7 @@ const addToDo = (text) => {
   return {
     type: ADD,
     text,
+    id: Date.now(),
   };
 };
 
