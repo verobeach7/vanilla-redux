@@ -34,6 +34,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
+  // createAction을 사용하는 경우 무엇을 보내더라도 payload에 탑재됨
   return { addToDo: (text) => dispatch(actionCreators.addToDo(text)) };
 }
 
