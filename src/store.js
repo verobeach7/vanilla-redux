@@ -16,7 +16,7 @@ const reducer = (state = [], action) => {
       // return [{ text: action.text, id: action.id }, ...state];
       console.log(action);
       // createAction을 사용하는 경우 나머지 것들은 payload를 통함
-      return [{ text: action.payload, id: action.id }, ...state];
+      return [{ text: action.payload.text, id: action.payload.id }, ...state];
     case deleteToDo.type:
       console.log(action);
       return state.filter((toDo) => toDo.id !== action.payload);
