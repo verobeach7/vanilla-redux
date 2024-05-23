@@ -1,21 +1,7 @@
-import { legacy_createStore } from "redux";
-import { createAction, createReducer } from "@reduxjs/toolkit";
+import { configureStore, createAction, createReducer } from "@reduxjs/toolkit";
 
 const addToDo = createAction("ADD");
 const deleteToDo = createAction("DELETE");
-
-/* const reducer = (state = [], action) => {
-  switch (action.type) {
-    case addToDo.type:
-      console.log(action);
-      return [{ text: action.payload.text, id: action.payload.id }, ...state];
-    case deleteToDo.type:
-      console.log(action);
-      return state.filter((toDo) => toDo.id !== action.payload);
-    default:
-      return state;
-  }
-}; */
 
 const reducer = createReducer([], (builder) => {
   builder
@@ -29,7 +15,9 @@ const reducer = createReducer([], (builder) => {
     );
 });
 
-const store = legacy_createStore(reducer);
+// configureStore: 이 function은 미들웨어와 함께 Store를 생성함
+// React DevTools 사용 가능하게 해줌
+const store = configureStore({ reducer });
 
 export const actionCreators = {
   addToDo,
