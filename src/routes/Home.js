@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { actionCreators } from "../store";
+import { add } from "../store";
 import ToDo from "../components/ToDo";
 
 function Home({ toDos, addToDo }) {
@@ -36,7 +36,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   // createAction을 사용하는 경우 무엇을 보내더라도 payload에 탑재됨
   return {
-    addToDo: (text, id) => dispatch(actionCreators.addToDo({ text, id })),
+    addToDo: (text, id) => dispatch(add({ text, id })),
   };
 }
 

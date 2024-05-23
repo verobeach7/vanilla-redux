@@ -1,27 +1,22 @@
-import { configureStore, createAction, createReducer } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-const addToDo = createAction("ADD");
-const deleteToDo = createAction("DELETE");
-
-const reducer = createReducer([], (builder) => {
-  builder
-    .addCase(addToDo, (state, action) => {
-      // return하지 않고 mutation 사용
+// createSlice는 actions와 reducer를 함께 생성해줌
+// createSlice는 actions를 자동으로 설정해줌(add, remove action 자동 생성)
+const toDos = createSlice({
+  name: "toDosReducer",
+  initialState: [],
+  reducers: {
+    add: (state, action) => {
       state.push({ text: action.payload.text, id: action.payload.id });
-    })
-    .addCase(deleteToDo, (state, action) =>
-      // 즉시 return함
-      state.filter((toDo) => toDo.id !== action.payload)
-    );
+    },
+    remove: (state, action) =>
+      state.filter((toDo) => toDo.id !== action.payload),
+  },
 });
 
-// configureStore: 이 function은 미들웨어와 함께 Store를 생성함
-// React DevTools 사용 가능하게 해줌
-const store = configureStore({ reducer });
+// toDos(createSlice)의 reducer를 Store에 다시 설정
+const store = configureStore({ reducer: toDos.reducer });
 
-export const actionCreators = {
-  addToDo,
-  deleteToDo,
-};
+export const { add, remove } = toDos.actions;
 
 export default store;

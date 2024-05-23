@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { actionCreators } from "../store";
+import { remove } from "../store";
 import { Link } from "react-router-dom";
 
 // 2. onBtnClick 함수를 props로 전달
@@ -17,7 +17,7 @@ const ToDo = ({ text, onBtnClick, id }) => {
 function mapDispatchToProps(dispatch, ownProps) {
   // console.log(ownProps); // {text: 'a', id: 1715776006286}
   return {
-    onBtnClick: () => dispatch(actionCreators.deleteToDo(ownProps.id)),
+    onBtnClick: () => dispatch(remove(ownProps.id)),
   };
 }
 
