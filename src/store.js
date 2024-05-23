@@ -14,9 +14,6 @@ const toDos = createSlice({
   },
 });
 
-// toDos(createSlice)의 reducer를 Store에 다시 설정
-const store = configureStore({ reducer: toDos.reducer });
-
 export const { add, remove } = toDos.actions;
 
-export default store;
+export default configureStore({ reducer: toDos.reducer });
